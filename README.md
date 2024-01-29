@@ -2,6 +2,8 @@
 
 A minecraft clone written in C++ using OpenGL.
 
+![minecraftpp_screenshot](https://github.com/puugz/minecraft/assets/33222334/6441d066-692b-481e-a1b3-9e5a391cc4e1)
+
 ## Features
 - [x] Simple world generation
 - [x] Free-look style camera
