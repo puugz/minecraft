@@ -1,0 +1,30 @@
+.vs
+.vscode
+out
+bin
+CMakeSettings.json
+.idea
+
+# Project exclude paths
+/cmake-build-debug/CMakeFiles/
+/cmake-build-release/CMakeFiles/
+
+# CMake
+cmake-build-*/
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### CMake Patch ###
+# External projects
+*-prefix/
