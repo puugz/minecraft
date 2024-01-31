@@ -17,7 +17,7 @@ namespace
     bool first_mouse_input = true;
     bool debug_focused = false;
 
-    Options options;
+    AppOptions options;
 
     f32 delta_time = 0.0f;
     f32 last_frame = 0.0f;
@@ -52,9 +52,9 @@ namespace
     };
 
     u32 chunk_border_indices[] = {
-        0, 1, 1, 2, 2, 3, 3, 0,  // bottom face
-        4, 5, 5, 6, 6, 7, 7, 4,  // top face
-        0, 4, 1, 5, 2, 6, 3, 7,  // connecting lines
+        0, 1, 1, 2, 2, 3, 3, 0,
+        4, 5, 5, 6, 6, 7, 7, 4,
+        0, 4, 1, 5, 2, 6, 3, 7,
     };
 }
 
@@ -87,8 +87,6 @@ void handle_mouse(GLFWwindow* window, double x, double y)
 App::App(Window& window)
     : m_window(window)
 {
-    m_chunk_shader = Shader::create("assets/shaders/chunk.glsl");
-
     options.cull_faces = true;
     options.camera = &camera;
     options.camera_speed = 25.f;
@@ -96,13 +94,20 @@ App::App(Window& window)
     glfwSetCursorPosCallback(m_window.handle(), handle_mouse);
     window.cursor_mode(CursorMode::Disabled);
 
+    // =================================
+    // |            ASSETS             |
+    // =================================
     m_atlas_texture = Texture2D::create("assets/textures/atlas.png");
+    m_chunk_shader = Shader::create("assets/shaders/chunk.glsl");
+    m_chunk_border_shader = Shader::create("assets/shaders/chunk_border.glsl");
+    m_screen_shader = Shader::create("assets/shaders/screen.glsl");
 
     // =================================
     // |        SCREEN SETUP           |
     // =================================
     m_buffer = Target::create(window.width(), window.height());
-    m_screen_shader = Shader::create("assets/shaders/screen.glsl");
+    m_buffer->set_clear_color(0x72bcdb);
+
     m_screen_va = VertexArray::create();
 
     const auto screen_vb = VertexBuffer::create(screen_vertices, sizeof(screen_vertices));
@@ -117,7 +122,6 @@ App::App(Window& window)
     // =================================
     // |        CHUNK BORDER           |
     // =================================
-    m_chunk_border_shader = Shader::create("assets/shaders/chunk_border.glsl");
     m_chunk_border_va = VertexArray::create();
 
     const auto chunk_border_vb = VertexBuffer::create(chunk_border_vertices, sizeof(chunk_border_vertices));
@@ -127,6 +131,11 @@ App::App(Window& window)
 
     m_chunk_border_va->add_vertex_buffer(chunk_border_vb);
     m_chunk_border_va->set_index_buffer(IndexBuffer::create(chunk_border_indices, std::size(chunk_border_indices)));
+
+    // ==================================
+    // |            WORLD               |
+    // ==================================
+    m_world.generate();
 }
 
 void App::run()
@@ -143,7 +152,6 @@ void App::run()
         update_input();
         update_imgui(&options);
 
-        // this is silly :p
         f32 current_time = glfwGetTime();
         delta_time = current_time - last_frame;
         last_frame = current_time;
@@ -184,14 +192,13 @@ void App::run()
                 // Draw the chunk the player is in's border
                 if (options.draw_chunk_border)
                 {
-                    auto pos = camera.position();
-                    auto cam_chunk = World::world_to_chunk(pos.x, pos.y, pos.z);
+                    auto chunk_world_offset = World::world_to_chunk(camera.position().x, camera.position().y, camera.position().z);
 
                     auto model = mat4(1.0);
                     model = translate(model, vec3( // what the hel
-                        cam_chunk.x * CHUNK_WIDTH + CHUNK_WIDTH * 0.5 - 0.5,
-                        cam_chunk.y * CHUNK_HEIGHT + CHUNK_HEIGHT * 0.5 - 0.5,
-                        cam_chunk.z * CHUNK_DEPTH + CHUNK_DEPTH * 0.5 - 0.5
+                        chunk_world_offset.x * CHUNK_WIDTH + CHUNK_WIDTH * 0.5 - 0.5,
+                        chunk_world_offset.y * CHUNK_HEIGHT + CHUNK_HEIGHT * 0.5 - 0.5,
+                        chunk_world_offset.z * CHUNK_DEPTH + CHUNK_DEPTH * 0.5 - 0.5
                     ));
                     model = scale(model, vec3(CHUNK_WIDTH, CHUNK_HEIGHT, CHUNK_DEPTH));
 

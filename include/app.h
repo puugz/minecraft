@@ -15,7 +15,7 @@
 
 namespace minecraft
 {
-    struct Options
+    struct AppOptions
     {
         bool wireframe;
         bool cull_faces;
@@ -30,12 +30,6 @@ namespace minecraft
         App(Window& window);
 
         void init_imgui() const;
-
-        void update_imgui(Options* options);
-
-        void render_imgui() const;
-
-        void update_input() const;
 
         void run();
 
@@ -52,5 +46,11 @@ namespace minecraft
 
         Ref<Shader> m_chunk_shader;
         Ref<Texture2D> m_atlas_texture;
+
+        void update_imgui(AppOptions* options);
+
+        void render_imgui() const;
+
+        void update_input() const;
     };
 }

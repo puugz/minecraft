@@ -6,19 +6,19 @@
 
 namespace minecraft
 {
-    struct TickEvent
-    {};
-
-    struct WindowResizeEvent
-    {
-        // Window* window;
-        int width;
-        int height;
-    };
-
-    struct MouseMoveEvent
-    {
-        float x;
-        float y;
-    };
+    // struct TickEvent
+    // {};
+    //
+    // struct WindowResizeEvent
+    // {
+    //     // Window* window;
+    //     int width;
+    //     int height;
+    // };
+    //
+    // struct MouseMoveEvent
+    // {
+    //     float x;
+    //     float y;
+    // };
 }

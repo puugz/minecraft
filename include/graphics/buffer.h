@@ -123,10 +123,7 @@ namespace minecraft
     public:
         ~VertexBuffer();
 
-        static Ref<VertexBuffer> create();
         static Ref<VertexBuffer> create(f32* vertices, u32 size);
-
-        void set_data(f32* vertices, u32 size) const;
 
         void bind() const;
         void unbind() const;
@@ -144,10 +141,7 @@ namespace minecraft
     public:
         ~IndexBuffer();
 
-        static Ref<IndexBuffer> create();
         static Ref<IndexBuffer> create(u32* indices, u32 count);
-
-        void set_data(u32* indices, u32 count);
 
         void bind() const;
         void unbind() const;

@@ -5,12 +5,10 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
-#include <imgui_internal.h>
 
 #include "common.h"
 #include "app.h"
 
-struct DebugOptions;
 using namespace minecraft;
 
 void App::init_imgui() const
@@ -37,7 +35,7 @@ void App::init_imgui() const
     spdlog::debug("Initialized ImGui");
 }
 
-void App::update_imgui(Options* options)
+void App::update_imgui(AppOptions* options)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();

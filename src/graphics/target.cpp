@@ -64,8 +64,13 @@ void Target::bind(Fn<void>& callback) const
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void Target::resize(i32 width, i32 height)
+{
+    // TODO: Implement resize
+}
+
 void Target::clear() const
 {
-    glClearColor(114 / 255.f, 188 / 255.f, 219 / 255.f, 1.0f);
+    glClearColor(m_clear_color.r / 255.f, m_clear_color.g / 255.f, m_clear_color.b / 255.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

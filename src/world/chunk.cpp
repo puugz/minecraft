@@ -39,10 +39,10 @@ namespace
 #define WATER_LEVEL 2
 #define SAND_LEVEL 3
 
-Chunk::Chunk(World* world, vec3 offset)
+Chunk::Chunk(World* world, vec3 local_offset)
     :
     m_world(world),
-    m_offset(offset)
+    m_local_offset(local_offset)
 {
     m_blocks = new Block[CHUNK_SIZE];
 
@@ -224,6 +224,7 @@ void Chunk::plant_tree(i32 x, i32 y, i32 z)
             }
 
         yy++;
+        // todo: place only on non solid blocks like above
         set_block(x, yy, z - 1, BlockType::Leaf);
         set_block(x, yy, z, BlockType::Leaf);
         set_block(x, yy, z + 1, BlockType::Leaf);

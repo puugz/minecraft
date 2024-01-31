@@ -58,14 +58,14 @@ namespace minecraft
 
         i32 seed() const;
 
+        void clear();
+        void generate();
+
     private:
         i32 m_seed;
         std::unordered_map<ivec3, Chunk*, Vec3Hash, Vec3Equal> m_chunks;
 
-        bool m_generated;
-
-        void clear();
-        void generate();
+        bool m_generated = false;
 
         // Convert world space to chunk space
         static ivec3 world_to_chunk(i32 x, i32 y, i32 z);
@@ -84,7 +84,7 @@ namespace minecraft
     {
     public:
         Chunk() = default;
-        Chunk(World* world, vec3 offset);
+        Chunk(World* world, vec3 local_offset);
         ~Chunk();
 
         // Set the block at the given position in chunk space
@@ -96,17 +96,17 @@ namespace minecraft
         ivec3 chunk_offset() const
         {
             return {
-                m_offset.x * CHUNK_WIDTH,
-                m_offset.y * CHUNK_HEIGHT,
-                m_offset.z * CHUNK_DEPTH
+                m_local_offset.x * CHUNK_WIDTH,
+                m_local_offset.y * CHUNK_HEIGHT,
+                m_local_offset.z * CHUNK_DEPTH
             };
         }
 
     private:
         Block* m_blocks;
-
         World* m_world;
-        ivec3 m_offset;
+
+        ivec3 m_local_offset;
 
         Ref<VertexArray> m_vertex_array;
         Ref<VertexBuffer> m_vertex_buffer;

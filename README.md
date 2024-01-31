@@ -18,6 +18,7 @@ git submodule update --init --recursive
 ```
 
 ## TODO
+- [ ] Framebuffer resizing
 - [ ] Fix trees (blocks aren't placed if in another chunk)
 - [ ] Fix water transparency
 - [ ] Add vertical chunks?

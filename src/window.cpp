@@ -31,9 +31,10 @@ Window::Window(const char* title, i32 width, i32 height)
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         spdlog::critical("Failed to initialize GLAD (OpenGL)");
 
-    spdlog::info("Vendor:   {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
-    spdlog::info("Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
-    spdlog::info("Version:  {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+    spdlog::info("Loaded OpenGL");
+    spdlog::info(" * Vendor:   {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+    spdlog::info(" * Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+    spdlog::info(" * Version:  {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 
     glfwSwapInterval(1);
 }

@@ -14,7 +14,7 @@ Renderer::SceneData* Renderer::m_scene_data = new SceneData;
 void Renderer::begin_scene(const Camera& camera)
 {
     m_scene_data->view_matrix = camera.view_matrix();
-    m_scene_data->projection_matrix = camera.projection();
+    m_scene_data->projection_matrix = camera.projection_matrix();
 }
 
 void Renderer::end_scene()

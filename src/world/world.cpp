@@ -11,8 +11,6 @@ World::World()
 {
     srand(time(nullptr));
     m_seed = rand() % INT_MAX;
-
-    this->generate();
 }
 
 World::~World()
@@ -85,6 +83,8 @@ void World::clear()
 
 void World::generate()
 {
+    APP_ASSERT(!m_generated, "World already generated! Call clear() first!");
+
     spdlog::info("Generating world...");
 
     for (i32 x = 0; x < WORLD_WIDTH; x++)

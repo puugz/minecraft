@@ -44,6 +44,8 @@ Ref<Texture2D> Texture2D::create(const std::string& path)
     glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
+    spdlog::debug("Loaded texture {}", path);
+
     stbi_image_free(data);
 
     return texture_2d;
@@ -87,8 +89,6 @@ Ref<TextureCube> TextureCube::create(std::vector<std::string> faces)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-
-    spdlog::info("Loaded cubemap with id {}.", texture_cube->m_id);
 
     return texture_cube;
 }

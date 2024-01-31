@@ -41,27 +41,14 @@ void VertexBuffer::unbind() const
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-Ref<VertexBuffer> VertexBuffer::create()
-{
-    const auto vertex_buffer = std::make_shared<VertexBuffer>();
-    glGenBuffers(1, &vertex_buffer->m_id);
-
-    return vertex_buffer;
-}
-
 Ref<VertexBuffer> VertexBuffer::create(f32* vertices, u32 size)
 {
     const auto vertex_buffer = std::make_shared<VertexBuffer>();
     glGenBuffers(1, &vertex_buffer->m_id);
-    vertex_buffer->set_data(vertices, size);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer->m_id);
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 
     return vertex_buffer;
-}
-
-void VertexBuffer::set_data(f32* vertices, u32 size) const
-{
-    glBindBuffer(GL_ARRAY_BUFFER, m_id);
-    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
 // IndexBuffer
@@ -71,28 +58,15 @@ IndexBuffer::~IndexBuffer()
     glDeleteBuffers(1, &m_id);
 }
 
-Ref<IndexBuffer> IndexBuffer::create()
-{
-    const auto index_buffer = std::make_shared<IndexBuffer>();
-    glGenBuffers(1, &index_buffer->m_id);
-
-    return index_buffer;
-}
-
 Ref<IndexBuffer> IndexBuffer::create(u32* indices, u32 count)
 {
     const auto index_buffer = std::make_shared<IndexBuffer>();
     glGenBuffers(1, &index_buffer->m_id);
-    index_buffer->set_data(indices, count);
+    index_buffer->m_count = count;
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer->m_id);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(u32), indices, GL_STATIC_DRAW);
 
     return index_buffer;
-}
-
-void IndexBuffer::set_data(u32* indices, u32 count)
-{
-    m_count = count;
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(u32), indices, GL_STATIC_DRAW);
 }
 
 void IndexBuffer::bind() const

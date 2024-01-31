@@ -24,15 +24,15 @@ namespace minecraft
 
         void handle_mouse(f32 x_offset, f32 y_offset);
 
-        vec3 position() const;
-        vec3 direction() const;
-        vec3 right() const;
-        vec3 up() const;
+        vec3 position() const { return m_position; }
+        vec3 direction() const { return m_direction; }
+        vec3 right() const { return m_right; }
+        vec3 up() const { return m_up; }
 
-        f32 yaw() const;
-        f32 pitch() const;
+        f32 yaw() const { return m_yaw; }
+        f32 pitch() const { return m_pitch; }
 
-        mat4 projection() const;
+        mat4 projection_matrix() const;
         mat4 view_matrix() const;
 
     private:

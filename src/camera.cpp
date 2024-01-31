@@ -82,38 +82,10 @@ void Camera::handle_mouse(f32 x_offset, f32 y_offset)
     rotate_to(m_yaw, m_pitch);
 }
 
-vec3 Camera::position() const
+mat4 Camera::projection_matrix() const
 {
-    return m_position;
-}
-
-vec3 Camera::direction() const
-{
-    return m_direction;
-}
-
-vec3 Camera::right() const
-{
-    return m_right;
-}
-
-vec3 Camera::up() const
-{
-    return m_up;
-}
-
-f32 Camera::yaw() const
-{
-    return m_yaw;
-}
-
-f32 Camera::pitch() const
-{
-    return m_pitch;
-}
-
-mat4 Camera::projection() const
-{
+    // TODO: Use framebuffer aspect ratio
+    // TODO: Can cache this
     return glm::perspective(glm::radians(fov), 16.f / 9.f, m_near_plane, m_far_plane);
 }
 
