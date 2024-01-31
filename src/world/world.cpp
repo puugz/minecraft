@@ -9,8 +9,7 @@ using namespace minecraft;
 
 World::World()
 {
-    srand(time(nullptr));
-    m_seed = rand() % INT_MAX;
+    this->randomize_seed();
 }
 
 World::~World()
@@ -71,6 +70,12 @@ Block* World::get_block(i32 x, i32 y, i32 z)
 i32 World::seed() const
 {
     return m_seed;
+}
+
+void World::randomize_seed()
+{
+    srand(time(nullptr));
+    m_seed = rand() % INT_MAX;
 }
 
 void World::clear()

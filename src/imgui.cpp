@@ -84,6 +84,7 @@ void App::update_imgui(AppOptions* options)
         if (ImGui::Button("Regenerate"))
         {
             m_world.clear();
+            m_world.randomize_seed();
             m_world.generate();
         }
     }

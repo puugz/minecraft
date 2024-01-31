@@ -58,6 +58,7 @@ namespace minecraft
 
         i32 seed() const;
 
+        void randomize_seed();
         void clear();
         void generate();
 
