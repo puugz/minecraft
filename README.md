@@ -17,6 +17,9 @@ or, after cloning:
 git submodule update --init --recursive
 ```
 
+## Textures
+Textures are from [Faithless](https://www.curseforge.com/minecraft/texture-packs/faithless)
+
 ## TODO
 - [ ] Framebuffer resizing
 - [ ] Fix trees (blocks aren't placed if in another chunk)
